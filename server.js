@@ -39,7 +39,7 @@ app.get("/scrape", function (request, response) {
     });
 });
 app.get("/articles/:id", function (request, response) {
-    db.News.findOne({ _id: req.params.id }).populate("notes").then(function (dbNews) {
+    db.News.findOne({ _id: request.params.id }).populate("notes").then(function (dbNews) {
         response.json(dbNews);
     }).catch(function (err) {
         response.json(err);
@@ -47,7 +47,7 @@ app.get("/articles/:id", function (request, response) {
 });
 app.post("/articles/:id", function (request, response) {
     db.Notes.create(req.body).then(function (dbNotes) {
-        return db.News.findOneAndUpdate({ _id: req.params.id }, { note: dbNotes._id }, { new: true });
+        return db.News.findOneAndUpdate({ _id: request.params.id }, { note: dbNotes._id }, { new: true });
     }).then(function (dbNews) {
         response.json(dbNews);
     }).catch(function (err) {
