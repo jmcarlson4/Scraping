@@ -11,9 +11,13 @@ var NewsSchema = new Schema({
     required: true
   },
   note: {
-    type: Schema.Types.ObjectId,
-    ref: "Notes"
-  }
+    type: String,
+    required: true
+    },
+    reference: {
+      type: Schema.Types.ObjectId,
+      ref: "Notes"
+    }
 });
 
 var News = mongoose.model("News", NewsSchema);
