@@ -18,7 +18,7 @@ app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
 //var routes
-//mongoose.connect("mongodb://localhost/unit18Populater", { useNewUrlParser: true });
+mongoose.connect("mongodb://localhost/unit18Populater", { useNewUrlParser: true });
 
 
 app.get("/", function (request, response) {
@@ -31,17 +31,29 @@ app.get("/", function (request, response) {
             var result = {};
             result.title = $(this).text();
             result.link = $(this).parents("a").attr("href");
-            console.log(result);
+           // console.log(result);
             db.News.create(result).then(function (dbNews) {
-                console.log("HELP!");
-                console.log(dbNews);
+                response.render(dbNews);
+                //console.log("HELP!");
+              //  console.log(dbNews);
             }).catch(function (err) {
                 console.log(err);
             });
+            
         });
     });
 });
-
+app.post("/Notes", function (req, res) {
+    console.log(req.body);
+    db.Notes.insert(req.body, function (error, saved) {
+        if (error) {
+            console.log(error);
+        }
+        else {
+            res.send(saved);
+        }
+    });
+});
 
 // app.get("/scrape", function (request, response) {
 //     axios.get("https://www.nytimes.com/").then(function (response) {

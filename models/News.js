@@ -10,14 +10,14 @@ var NewsSchema = new Schema({
     type: String,
     required: true
   },
-  note: {
-    type: String,
-    required: true
-    },
-    reference: {
-      type: Schema.Types.ObjectId,
-      ref: "Notes"
-    }
+  // note: {
+  //   type: String,
+  //   required: true
+  //   },
+    // reference: {
+    //   type: Schema.Types.ObjectId,
+    //   ref: "Notes"
+    // }
 });
 
 var News = mongoose.model("News", NewsSchema);
